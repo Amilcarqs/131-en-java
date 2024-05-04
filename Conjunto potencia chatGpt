@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PowerSet {
+    public static void main(String[] args) {
+        int[] set = {1, 2, 3};
+        List<List<Integer>> powerSet = generatePowerSet(set);
+        System.out.println("Conjunto de Potencia:");
+        for (List<Integer> subset : powerSet) {
+            System.out.println(subset);
+        }
+    }
+
+    private static List<List<Integer>> generatePowerSet(int[] set) {
+        List<List<Integer>> powerSet = new ArrayList<>();
+        backtrack(set, 0, new ArrayList<>(), powerSet);
+        return powerSet;
+    }
+
+    private static void backtrack(int[] set, int index, List<Integer> subset, List<List<Integer>> powerSet) {
+        powerSet.add(new ArrayList<>(subset));
+        for (int i = index; i < set.length; i++) {
+            subset.add(set[i]);
+            backtrack(set, i + 1, subset, powerSet);
+            subset.remove(subset.size() - 1);
+        }
+    }
+}
+
+
+/* salida
+Conjunto de Potencia:
+[]
+[1]
+[1, 2]
+[1, 2, 3]
+[1, 3]
+[2]
+[2, 3]
+[3]
+*/
